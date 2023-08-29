@@ -1,11 +1,23 @@
 import { Text, Pressable, View } from "react-native";
 import { Formik } from "formik";
+import * as yup from "yup";
 import FormikTextInput from "./FormikTextInput";
 
 const initialValues = {
   mass: "",
   height: "",
 };
+
+const validationSchema = yup.object().shape({
+  mass: yup
+    .number()
+    .min(1, "Weight must be greater or equal to 1")
+    .required("Weight is required"),
+  height: yup
+    .number()
+    .min(0.5, "Height must be greater or equal to 0.5")
+    .required("Height is required"),
+});
 
 const getBodyMassIndex = (mass, height) => {
   return Math.round(mass / Math.pow(height, 2));
@@ -34,7 +46,11 @@ const BodyMassIndexCalculator = () => {
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmit}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
       {({ handleSubmit }) => <BodyMassIndexForm onSubmit={handleSubmit} />}
     </Formik>
   );

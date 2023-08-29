@@ -6,6 +6,7 @@ const theme = {
     white: "#ffffff",
     bgColor: "#e1e4e8",
     chipColor: "#0366d6",
+    error: "#d73a4a",
   },
   fontSizes: {
     small: 12,
